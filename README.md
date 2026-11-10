@@ -133,20 +133,6 @@ AdjustUtil.shared.setUp(appToken: "YOUR_APP_TOKEN", revenueEventToken: "abc123")
 - Xem event realtime: Xcode > Edit Scheme > Run > Arguments > thêm `-FIRDebugEnabled`, rồi mở Firebase console > DebugView.
 - App đang dùng Firebase 13 sẽ xung đột version: chờ thư viện nâng lên 13 (cùng GMA 13, cần Xcode >= 26.2).
 
-## Check công nghệ lõi (CNL)
-
-Port `startingCheckCNL` bản Android, nằm ở `Sources/AmazicAdsIos/CNL/CNLChecker.swift`.
-
-- Thư viện **tự gọi** lúc `initSplash` (tắt: `Admob.shared.isCheckCNLEnabled = false`). Gọi tay: `CNLChecker.shared.startingCheckCNL()`.
-- Đọc (chỉ đọc) SQLite của Google Mobile Ads: `Library/Application Support/GoogleMobileAds/storage`, bảng `storage`:
-  - `test_mode_enabled` ("1" = máy đang ở chế độ ads test, tương đương `isTestMode` Android)
-  - `admob_application_id` (app id)
-- Chỉ log event `inspector_info` (`state`, `app_id`, `gesture`) khi `test_mode_enabled` **thay đổi** so với lần trước
-  (lưu ở UserDefaults key `cnl_track_last_test_mode`). `state`: `"null"` (chưa có dữ liệu) / `"false"` / `"true"`. `gesture` luôn `"null"` (iOS không lưu).
-- Kết quả: `CNLChecker.shared.isDetectedTech` hoặc callback `CNLChecker.shared.onDetectedTech = { detected in ... }`.
-- Event đi qua `EventLog` -> Firebase Analytics nếu có `GoogleService-Info.plist`.
-- Lưu ý: đây là dữ liệu nội bộ của SDK (không công bố), có thể đổi theo version. Lần cài đầu DB chưa có -> `state = "null"`, lần mở sau mới có giá trị.
-
 ## App sample
 
 Mở `Example/AmazicAdsExample.xcodeproj` (Xcode 16+) → chọn simulator → **Cmd + R**.
