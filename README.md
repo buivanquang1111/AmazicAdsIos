@@ -1,7 +1,7 @@
 # AmazicAdsIos
 
-Thư viện ads cho app **SwiftUI native** (iOS 15+), port từ plugin Flutter `amazic_ads_flutter` (branch `cuongnl/fix_ios`).
-Lớp chính: `Admob.shared` (tương ứng `Admob.instance` bên Flutter).
+Thư viện ads cho app **SwiftUI native** (iOS 15+).
+Lớp chính: `Admob.shared`.
 
 Thư viện phụ thuộc sẵn **Google Mobile Ads 12 + UMP + Adjust 5 + Firebase 12.14 (Analytics, Remote Config)**
 -> app dùng thư viện không cần add lại các package này.
